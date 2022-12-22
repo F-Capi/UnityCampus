@@ -173,4 +173,41 @@ export const data = [
         ]
     },
 
+    {
+        name: "prjt6",
+        instructions: [{
+            title: "Flappy Bird - Gravedad",
+            img: "../gifs/fla1.gif",
+            text: "Lo primero que habrá que hacer es definir una variable llamada gravedad.<br><br>1. Al inicio del programa le daremos a gravedad un valor negativo como -3.<br><br>2. Luego en un bucle para siempre estaremos decrementando la coordenada y tanto como gravedad."
+        },
+        {
+            title: "Flappy Bird - Gravedad Acelerada",
+            img: "../gifs/fla2.gif",
+            text: "Con tal de que se vaya acelerando podemos dentro del bucle, ir decrementando la gravedad por -1"
+        },
+        {
+            title: "Flappy Bird - Saltar",
+            img: "../gifs/fla3.gif",
+            text: "Arrastra un nuevo evento de 'en clicar la bandera'<br><br> Dentro de un bucle comprobaremos con una pregunta, si se ha pulsado la tecla espacio. Si es así, le asignaremos a gravedad un valor positivo."
+        },
+        {
+            title: "Flappy Bird - Tuberias",
+            img: "../gifs/fla4.gif",
+            text: "1. Crea un objeto nuevo<br><br>2. En el editor dibuja unas tuberias que sobresalgan del recuadro."
+        }
+            ,
+        {
+            title: "Flappy Bird - Movimiento tuberias",
+            img: "",
+            text: "La tuberia comienza desde la izquierda en una coordenadad 'y' aleatoria. Se mueve hacia la izquierda y cuando su posición 'x' es menor de -175 vuelve al inicio. Es lo mismo que el proyecto de los coches"
+        }
+            ,
+        {
+            title: "Muerte y puntos",
+            img: "",
+            text: "Implementa que el jugador pueda morir al tocar la tuberia, y tambien un sistema de puntuación"
+        }
+        ]
+    },
+
 ]
