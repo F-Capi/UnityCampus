@@ -210,4 +210,138 @@ export const data = [
         ]
     },
 
+    //------------------------------------------------------------------------------------------------------
+    {
+        name: "prjt7",
+        instructions: [{
+            title: "Platformer",
+            img: "../gifs/platformer1.gif",
+            text: "<h2>A continuación construiremos unos controles de plataformeo, estos controles los podemos guardar en la mochila de scratch para reutilizarlo en diferentes projectos.</h2>"
+        },
+        {
+            title: "Suelo",
+            img: "../gifs/suelo.gif",
+            text: "<h3>Crearemos un objeto suelo. Sin utilizar bordes, debemos usar rectangulos de dos colores, uno para el suelo exterior, y otro para el interior.</h3>"
+        },
+        {
+            title: "Gravedad y Colisión 1",
+            img: "../gifs/platformer2.gif",
+            text: "<h2>Crea la variable gravedad. y al inicio dale el valor de -2</h2>"
+        },
+        {
+            title: "Gravedad y Colisión 2",
+            img: "../gifs/platformer3.gif",
+            text: "<h3>El siguiente código hace que si el jugador no está tocando el suelo, entonces hasta que si lo toque le afectará la gravedad. <br><br>La gravedad se acelerará siempre que no pase el limite de -7. <br><br>Al tocar el suelo el jugador dejará de caer. En caso de que si esté tocando el suelo, la gravedad es positiva para darle una aceleración positiva al saltar.</h3>"
+        },
+        {
+            title: "Controles",
+            img: "../gifs/platformer4.gif",
+            text: "<h3>Fijaremos el estilo de rotación a izquierda y derecha. <br><br> Si pulsamos la letra 'd' nos moveremos a la derecha y si pulsamos 'a' nos moveremos a la izquierda.<br><br>Para que el personaje siempre este delante del resto de objetos, lo traeremos a la capa delantera.</h3>"
+        },
+        {
+            title: "Salto",
+            img: "../gifs/platformer5.gif",
+            text: "<h3>Si se pulsa saltar y ademas estamos tocando el suelo, entonces repetimos 10 veces sumar a y para que suba, luego esperamos para no poder mantener pulsado saltar.</h3>"
+        },
+        {
+            title: "Colisión Vertical",
+            img: "../gifs/platformer6.gif",
+            text: "<h3>Si se toca el color del suelo interior, so quiere decir que es una pared, así que a la x le sumaremos la multiplicación de 3 por -1 por dirección dividido 90.</h3>"
+        },
+        {
+            title: "Colisión Vertical 2",
+            img: "../gifs/platformer7.gif",
+            text: "<h3>Para mejorar la detección de colisión podemos dibujar un rectangulo a los pies del personaje, y eliminar aquellas partes como bigotes y cola que sobresalen del personaje.</h3>"
+        },
+        {
+            title: "Guardar código",
+            img: "../gifs/platformer8.gif",
+            text: "<h3> Puedes guardar los objetos arrastrándolos a la mochila, de esta forma puedes usar este controlador de plataforma en cualquier proyecto!</h3>"
+        },
+        ]
+    },
+    {
+        name: "prjt8",
+        instructions: [{
+            title: "Importa a los objetos de jugador y suelo de la mochila.",
+            img: "../gifs/import.gif",
+            text: ""
+        },
+        {
+            title: "Multiples disfraces para el objeto suelo.",
+            img: "../gifs/multplat2.gif",
+            text: "<h3>Cada disfraz puede ser un mapa diferente para construir un nivel entero.</h3>"
+        },
+        {
+            title: "Objeto siguiente mapa",
+            img: "../gifs/multplat3.gif",
+            text: "<h3>Creamos una flecha, la colocaremos al final del primer nivel</h3>"
+        },
+        {
+            title: "Objeto siguiente mapa",
+            img: "../gifs/multplat4.gif",
+            text: "<h3>Haremos que vaya a la posición inicial. Si toca al jugador, enviaremos un mensaje que cambiará el disfraz del suelo.</h3>"
+        },
+        ]
+    },
+    {
+        name: "prjt9",
+        instructions: [{
+            title: "Importa a los objetos de jugador y suelo de la mochila.",
+            img: "../gifs/import.gif",
+            text: ""
+        },
+        {
+            title: "Haremos un shooter",
+            img: "../gifs/shooter1.gif",
+            text: "<h3>crearemos un objeto bala que comience escondido.</h3>"
+        },
+        {
+            title: "Dirección",
+            img: "../gifs/shooter2.gif",
+            text: "<h3>Necesitaremos una variable direccion1 que guardará la direccion del jugador todo el tiempo en la variable. Esta dirección la utilizaremos para decirle a la bala si ir a la derecha o izquierda</h3>"
+        },
+        {
+            title: "Disparar",
+            img: "../gifs/shooter3.gif",
+            text: "<h3>En pulsar la tecla 'e' crearemos un clon. En crear el clon, mostramos la bala, que se mueva  donde el jugador, la apuntamos a la dirección de la variable dirección1 y repetimos mover hasta tocar el borde</h3>"
+        },
+        {
+            title: "Crea una horda de zombies!",
+            img: "../gifs/shooter4.gif",
+            text: "<h3>Crea un enemigo y continua este juego!</h3>"
+        },
+        ]
+    },
+    {
+        name: "prjt10",
+        instructions: [{
+            title: "1 VS 1",
+            img: "../gifs/import.gif",
+            text: ""
+        },
+        {
+            title: "Importar Objetos",
+            img: "../gifs/import2.gif",
+            text: "Importa dos objetos de jugador y uno de suelo de la mochila."
+        },
+        {
+            title: "Dirección",
+            img: "../gifs/shooter2.gif",
+            text: "<h3>Necesitaremos una variable direccion1 y direccion2 que guardará la direccion del jugador todo el tiempo en la variable.</h3>"
+        },
+        {
+            title: "Gravedad",
+            img: "../gifs/fight1.gif",
+            text: "<h3>Deberemos de crear una variable gravedad2, para el segundo jugador</h3>"
+        },
+        {
+            title: "Controles Jugador 2",
+            img: "../gifs/fight2.gif",
+            text: "<h3>cambia los controles del jugador 2 a las flechitas.</h3>"
+        },
+        ]
+    }
+
+
 ]

@@ -48,6 +48,7 @@ body {
 
 
 .content {
+  margin: 100px auto;
   flex-grow: 1;
   padding: 2rem;
   overflow-y: scroll;
@@ -68,7 +69,17 @@ body {
  
 }
 
+
+.square2 {
+  box-shadow: 5px 5px 20px #d247f5;
+}
+
+.title-1{
+  position: relative;
+  top: -100px;
+}
 .square:hover {
+  cursor: pointer;
     transform: scale(1.15);
   }
 
