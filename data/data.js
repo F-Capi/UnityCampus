@@ -341,7 +341,48 @@ export const data = [
             text: "<h3>cambia los controles del jugador 2 a las flechitas.</h3>"
         },
         ]
+    },
+
+    {
+        name: "prjt11",
+        instructions: [{
+            title: "Importar Objetos",
+            img: "../gifs/import2.gif",
+            text: "Importa dos objetos de jugador y uno de suelo de la mochila."
+        },
+        {
+            title: "Pelota",
+            img: "../gifs/footvar.gif",
+            text: "<h3>Crea un objeto de pelota y crea las siguientes variables.</h3>"
+        },
+        {
+            title: "Fragmento 1 - Pelota",
+            img: "../gifs/football1.gif",
+            text: "<h3>El siguiente trozo de código hace la gravedad de la pelota y sus fisicas en el eje vertical.</h3>"
+        },
+        {
+            title: "CFragmento 1 - Volea",
+            img: "../gifs/football2.gif",
+            text: "<h3>Este mensaje es para reiniciar la posición de la pelota</h3>"
+        },
+        {
+            title: "Fragmento 1 - Patear Jugador 1",
+            img: "../gifs/football3.gif",
+            text: "<h3>El siguiente código le permite chutar al jugador 1</h3>"
+        },
+        {
+            title: "Fragmento 1 - Patear Jugador 2",
+            img: "../gifs/football4.gif",
+            text: "<h3>El siguiente fragmento de código le permite chutar al jugador 2</h3>"
+        },
+        {
+            title: "Porterias Y Puntuacíon",
+            img: "../gifs/foot.gif",
+            text: "<h3>Crea las porterias o las canastas y haz que se pueda hacer gol</h3>"
+        },
+        ]
     }
+
 
 
 ]
