@@ -12,4 +12,8 @@ export class UI {
         const paragraph = document.querySelector(".paragraph");
         paragraph.innerHTML = text;
     }
+    showCode(text) {
+        const code = document.querySelector(".code");
+        code.innerHTML = text;
+    }
 }

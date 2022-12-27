@@ -7,6 +7,7 @@ const renderPage = (proj, ui) => {
     ui.showParagraph(proj.getCurrentInstruction().text);
     ui.showImg(proj.getCurrentInstruction().gif);
     ui.showTitle(proj.getCurrentInstruction().title);
+    ui.showCode(proj.getCurrentInstruction().code);
 }
 
 function main() {

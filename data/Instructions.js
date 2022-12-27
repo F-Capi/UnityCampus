@@ -18,7 +18,7 @@ export function getInstructions() {
 
     const id = getUrlParams();
     const instruction = data.find(({ name }) => name === id);
-    const instructions = instruction.instructions.map(instruction => new Instruction(instruction.title, instruction.img, instruction.text));
+    const instructions = instruction.instructions.map(instruction => new Instruction(instruction.title, instruction.img, instruction.text, instruction?.code));
     console.log(instructions);
     return instructions;
 }
