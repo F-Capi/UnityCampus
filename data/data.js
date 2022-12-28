@@ -345,4 +345,240 @@ export const data = [
         ]
     },
 
+
+    {
+        name: "prjt3",
+        instructions: [
+            {
+                title: "Condiciones y Controles 1",
+                img: "../gifs/3.1.gif",
+                code: `
+                if(/*la condición*/){
+                 //el codigo que queremos que suceda si se cumple la condición   
+                }`,
+                text: "<p>Las condiciones nos pueden servir para detectar si se ha pulsado una tecla entre otras muchas cosas. Solemos escribirlas dentro del método update, ya que nos interesa que cada momento del juego pregunte si se cumple la condición la estructura de una condición es:</p>"
+            },
+            {
+                title: "Condiciones y Controles 2",
+                img: "../gifs/3.2.gif",
+                code: `
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Debug.Log("Acabas de apretar espacio");
+                }
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    Debug.Log("Estas apretado espacio");
+                }
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    Debug.Log("has soltado espacio");
+                }`,
+                text: "<p>Podemos comprobar si se pulsa una tecla en específica utilizando condiciones.</p><br><p>Las condiciones que existen para detectar si se aprieta una tecla són:</p><ul><li><b>Input.GetKeyDown(KeyCode.tecla)</b> Comprueba si la tecla ha sido pulsada</li><li><b>Input.GetKey(KeyCode.tecla)</b>Comprueba si la tecla está siendo detectada</li><li><b>Input.GetKeyUp(KeyCode.tecla)</b> Comprueba si la tecla se acaba de pulsar.</li>/ul><br><p>En un script nuevo pónselo a cualquier objeto y pega el siguiete código en el update para comprobar que sucede:</p>"
+            },
+
+            {
+                title: "Condiciones y Controles 3",
+                img: "../gifs/3.3.gif",
+                code: `
+                // aqui se crean las variables
+                Rigidbody2D rb;//rb es el nombre de la variable
+                void Start()
+                {
+                    //desde start capturamos el componente
+                    rb = GetComponent<Rigidbody2D>();
+                }
+            
+                // Update is called once per frame
+                void Update()
+                {
+            
+                }`,
+                text: "<p>Crea un objeto que sea un cuadrado, tenga un rigidbody con gravedad, y un box collider, y pueda chocar contra un suelo. </p><br><p>Crea un script llamado movement1 y ponselo al jugador </p><br><p>Pdemos guardar el rigidbody del jugador en una variable Rigidbody2D, de forma que podemos modificar el componente desde código!</p><br><p>Para capturar el componente debemos primero crear la variable, y luego desde el método start lo atrapamos.</p>"
+            },
+            {
+                title: "Condiciones y Controles 4",
+                img: "../gifs/3.4.gif",
+                code: `rb.velocity = Vector2.right * 5f;
+               `,
+                text: "<p>Podemos darle una velocidad al rigidbody, multiplicando un vector de dirección por una velocidad</p><br><p>Si queremos usar direcciones como derecha, izquierda, arriba o abajo, podemos obtener esas direcciones fácilmente con: <br> Vector2.Up, Vector2.right, Vector2.Down, Vector2.left.</p><br> <p>Para hacer que se mueva hacia a derecha vamos a decirla a la velocidad que sea igual a Vector2.Right*5f.</p>"
+            }
+            ,
+            {
+                title: "Condiciones y Controles 5",
+                img: "../gifs/3.5.gif",
+                code: `
+               `,
+                text: "<p>Ahora haremos un pequeño cambio, crearemos una variable de tipo float llamada velocidad, y le pondremos public antes de nada. Esto nos permite darle un valor a la variable y verla desde el editor de unity, mas concretamente allá donde esté el script</p><p>En vez de multiplicar 5f por Vector2.right, lo multiplicaremos por la variable velocidad. En el inspector prueba a darle un valor.<p><br><p>Puedes incluso modificar el valor mientras el juego está en ejecución</p>"
+            },
+            {
+                title: "Condiciones y Controles 6",
+                img: "",
+                code: `
+               `,
+                text: "Substituye Vector.right, por up y observa lo que pasa, haz lo mismo para down y left."
+            }
+            ,
+            {
+                title: "Condiciones y Controles 7",
+                img: "../gifs/3.7.gif",
+                code: `
+               `,
+                text: "<p>Sabiendo que puedes comprobar si se pulsa la flecha izquierda y la derecha, podrías hacer que se moviese izquierda y derecha en clicar?</p>"
+            },
+            {
+                title: "Condiciones y Controles 8",
+                img: "../gifs/3.8.gif",
+                code: `
+               `,
+                text: "<p>Utilizando Input.getAxisRaw(Horizontal'), podemos obener un número entre -1 y 1. Si no se aprieta nada obtendremos 0, si se aprieta derecha obtenemos 1, y si se aprieta izquierda obtenemos -1</p><br><p>Prueba a en el método Update mostrar por pantalla esta instrucción.</p>"
+            },
+
+            {
+                title: "Condiciones y Controles 9",
+                img: "../gifs/3.9.gif",
+                code: `
+               `,
+                text: "<p>Sabiendo lo anterior podemos quitar las condiciones y meeter este valor en una variable llamada xinput y multiplicarla por la velocidad. Puesto que si no se pulsa nada, xinput será 0, no se moverá, ya que velocidad*0 = 0, en cambio, si es 1: velocidad * 1 irá hacia la derecha, y velocidad * -1  hacia la izquierda.</p>"
+            },
+            {
+                title: "Condiciones y Controles 10",
+                img: "../gifs/3.10.gif",
+                code: `
+        
+               `,
+                text: "<p>Vamos a quitarle el script de movement y vamos a crearle un script llamado Jump<p>"
+            },
+            {
+                title: "Condiciones y Controles 11",
+                img: "../gifs/3.11.gif",
+                code: `
+        
+               `,
+                text: "<p>Los métodos OnTriggerEnter2D y OnTriggerExit2D, sirven para eecutar código en el momento de una colisión y en el final de una misma. Agrega estos dos métodos al script y escribe un mensaje dentro de ellos qué diga ‘colision start’ y ‘colision end’. Además deberás agregar un nuevo collider de tipo trigger al jugador, que solo ocupe la parte inferior de sus piernas, serivirá para detectar el suelo</p>"
+            },
+            {
+                title: "Condiciones y Controles 12",
+                img: "../gifs/3.12.gif",
+                code: `
+                public bool isGrounded = false;
+                void Start()
+                {
+            
+                }
+            
+                // Update is called once per frame
+                void Update()
+                {
+            
+                }
+            
+                void OnTriggerEnter2D(Collider2D other)
+                {
+                    isGrounded = true;
+                }
+                void OnTriggerExit2D(Collider2D other)
+                {
+                    isGrounded = false;
+                }
+               `,
+                text: "<p>Una variable bool, es una que puede contener solo dos valores, o true o false. Podemos usarlas para manejar estados. Por ejemplo en un juego de plataformas, solo se puede saltar si se esta tocando el suelo. Podemos tener una variable <b>isGrounded</b> que sea true cuando entramos en contacto y sea false cuando salimos de contacto. Haremos de la variable publica para verla desde el inspector.</p>"
+            },
+            {
+                title: "Condiciones y Controles 13",
+                img: "../gifs/3.13.gif",
+                code: `
+              
+               `,
+                text: "<p>Podría ser que hayan objetos que no son suelo que detectemos con los ontriggers. Para disernir de si es un suelo o no, al suelo le agregaremos una tag de suelo.</p>"
+            },
+            {
+                title: "Condiciones y Controles 14",
+                img: "../gifs/3.14.gif",
+                code: `
+                void OnTriggerEnter2D(Collider2D other)
+                {
+                    if (other.gameObject.CompareTag("suelo"))
+                    {
+            
+                        isGrounded = true;
+                    }
+                }
+                void OnTriggerExit2D(Collider2D other)
+                {
+                    if (other.gameObject.CompareTag("suelo"))
+                    {
+                        isGrounded = false;
+                    }
+                }
+               `,
+                text: "<p>Dentro de los Ontriggers podemos comprobar con unas condiciones si el collider que se registra, es de un gameObject con la tag de suelo. </p>"
+            },
+            {
+                title: "Condiciones y Controles 15",
+                img: "../gifs/3.15.gif",
+                code: `
+                if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
+                {
+                    //asi comprobamos dos cosas a la vez
+                }
+               `,
+                text: "<p>Gracias a isGrounded sabemos si estamos tocando suelo o no. Saltaremos si estamos tocando el suelo y si a su vez si estamos apretando la tecla espacio.<br>Para comprobar si se cumplen dos condiciones a la vez puedes usar el operador && de la siguiente forma: </p>"
+            },
+            {
+                title: "Condiciones y Controles 16",
+                img: "../gifs/3.16.gif",
+                code: `
+                Rigidbody2D rb;
+                void Start()
+                {
+                    rb = GetComponent<Rigidbody2D>();
+                }
+            
+               `,
+                text: "<p>Ahora solo queda hacer que salte, para ello necesitaremos usar el rigidbody del objeto. Recuerda que para usarlo hay que crear una variable,y en el Start, usando GetComponent obtenemos el rigidbody del objeto.</p> "
+            },
+            {
+                title: "Condiciones y Controles 17",
+                img: "../gifs/3.17.gif",
+                code: `
+               
+               `,
+                text: "<p>Solo queda hacer que salte, crearemos una variable jumpSpeed publica para poder darle un valor desde el ispector. Al rg.velocity le asignaremos en la y la velocidad</p> "
+            },
+            {
+                title: "Condiciones y Controles 18",
+                img: "../gifs/3.18.gif",
+                code: `
+               
+               `,
+                text: "<p>Si al jugador le arrastamos el script de movimiento, y tambien el de salto, podemos observar como por desgracia los dos scripts no funcionan a la vez. Esto es porque solo puede haber un metodo Update por gameObject, y nosotros tenemos uno en cada archivo</p> <br><p>En el script de mvement y de jump quitaremos el nombre udate y pondremos 'public void saltar' y 'public void mover'.</p>"
+            },
+            {
+                title: "Condiciones y Controles 19",
+                img: "../gifs/3.19.gif",
+                code: `
+               
+               `,
+                text: "<p>Ahora crearemos un nuevo archivo 'PlayerController' este será el script que tendrá el update, y nosotros crearemos dos variables para almacenar los componentes de Jump y Movenment al igual que hacemos con el Rigidbody.</p>"
+            },
+            {
+                title: "Condiciones y Controles 20",
+                img: "../gifs/3.20.gif",
+                code: `
+               
+               `,
+                text: "<p>Desde el metodo Update podemos decirle que ejecute mover y saltar todo el tiempo. Al guardar los componentes en este scrip podemos tener diferentes comporamientos con un solo Update. Si fueramos a implementar un script de Dash, entoces tendriamos que crear una varaible en el controller</p>"
+            },
+            {
+                title: "Condiciones y Controles 21",
+                img: "../gifs/3.21.gif",
+                code: `
+                rb.velocity = new Vector2(xinput * velocidad, rb.velocity.y);
+               `,
+                text: "<p>En el script de Movement lo movemos multiplicando por Vector2.right, esto entra en conflicto con la gravedad, para ellos sustituiremos esa linea por esta</p>"
+            },
+        ]
+    },
+
 ]

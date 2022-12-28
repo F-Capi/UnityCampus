@@ -14,6 +14,6 @@ export class UI {
     }
     showCode(text) {
         const code = document.querySelector(".code");
-        code.innerHTML = text;
+        code.textContent = text;
     }
 }
