@@ -581,4 +581,712 @@ export const data = [
         ]
     },
 
+    {
+        name: "prjt4",
+        instructions: [
+            {
+                title: "1 Proyecto Plataformas",
+                img: "../gifs/5.1.gif",
+                code: `
+                `,
+                text: "<p>Crea una carpeta llamada scripts en el proyecto, ves dentro de ella.</p>"
+            },
+            {
+                title: "2 Proyecto Plataformas",
+                img: "../gifs/5.2.gif",
+                code: `
+                using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class VidaEnemigo : MonoBehaviour
+{
+    public float puntos_vida;
+    public float cuantoQuitaPlayer;
+    [HideInInspector]
+    public Vida vidaEnemigo;
+    bool canHurt = true;
+    // Start is called before the first frame update
+    void Start()
+    {
+        vidaEnemigo = new Vida(null, puntos_vida, this.gameObject, "enemy");
+    }
+
+
+    public void muerto()
+    {
+        Destroy(transform.parent.gameObject);
+    }
+
+    public void herirEnemigo()
+    {
+
+        vidaEnemigo.DecrementarVida(cuantoQuitaPlayer);
+    }
+
+
+
+}
+
+                `,
+                text: "<p>Primer paso, crea un script Llamado <b>‘VidaEnemigo’</b>, asegúrate de escribir el nombre perfectamente. <br>Luego pega el código de aquí abajo.</p>"
+            },
+            {
+                title: "4 Proyecto Plataformas",
+                img: "../gifs/5.4.gif",
+                code: `
+                using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyPatrol : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public float speed = 5f;
+    public Transform posicionObjetivo;
+    Vector3 ultimaPosicion;
+
+    [HideInInspector]
+    public float dir;
+    Rigidbody2D rb;
+    void Start()
+    {
+
+        ultimaPosicion = transform.position;
+        dir = 1;
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (Vector3.Distance(posicionObjetivo.position, transform.position) < 1)
+        {
+            Vector3 provisional = posicionObjetivo.position;
+            posicionObjetivo.position = ultimaPosicion;
+            ultimaPosicion = provisional;
+
+            dir *= -1;
+        }
+
+        rb.velocity = new Vector2(dir * speed, rb.velocity.y);
+    }
+}
+
+
+                `,
+                text: "<p>Crea un script Llamado <b>‘EnemyPatrol’</b>, asegúrate de escribir el nombre perfectamente. <br>Luego pega el código de aquí abajo.</p>"
+            },
+            {
+                title: "5 Proyecto Plataformas",
+                img: "../gifs/5.5.gif",
+                code: `
+                using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class Vida : MonoBehaviour
+{
+    // Start is called before the first frame update
+    TMP_Text text;
+    float health = 10;
+    float initialHealth;
+    GameObject obj;
+    string type;
+
+    bool muerto = false;
+
+    public Vida(TMP_Text text, float health, GameObject obj, string type)
+    {
+        this.text = text;
+        this.health = health;
+        this.obj = obj;
+        this.type = type;
+        mostrarVida();
+    }
+    private void mostrarVida()
+    {
+        Debug.Log("Vida de " + type + health);
+        if (text != null)
+        {
+
+            text.text = health.ToString();
+        }
+    }
+
+    // Update is called once per frame
+    public void DecrementarVida(float daño)
+    {
+        if (health - daño > 0)
+        {
+            health -= daño;
+        }
+        else
+        {
+            health = 0;
+            muerto = true;
+        }
+
+        if (muerto)
+        {
+            if (type == "player")
+            {
+                obj.GetComponent<PlayerController>().muerto();
+            }
+            else if (type == "enemy")
+            {
+                obj.GetComponentInParent<VidaEnemigo>().muerto();
+            }
+            else
+            {
+                Debug.Log("No existe el tipo " + type);
+            }
+        }
+        mostrarVida();
+
+    }
+
+    public void IncrementarVida(float vida)
+    {
+        if (health + vida <= vida)
+        {
+            health += vida;
+            mostrarVida();
+        }
+
+    }
+
+    public bool stillAlive(float daño)
+    {
+        if (health - daño > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+                `,
+                text: "<p>Crea un script Llamado <b>‘Vida’</b>, asegúrate de escribir el nombre perfectamente. <br>Luego pega el código de aquí abajo.</p>"
+            },
+            {
+                title: "6 Proyecto Plataformas",
+                img: "../gifs/5.6.gif",
+                code: `
+                using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class PlayerObject : MonoBehaviour
+{
+    //PARAMETROS DE JUEGO
+    public TMP_Text tmp_vida;
+    public float puntosDevida = 3;
+    [HideInInspector]
+    public Vida vida;
+
+    //Velocidades 
+    public float vHorizontal = 5;
+    public float vSalto = 7;
+
+    [HideInInspector]
+    //Componentes
+    public Rigidbody2D rb;
+
+    [Header("No tocar las variables de aqui abajo")]
+    //Propiedades en relacion al estado del personaje
+    public bool tocandoSuelo;
+    public bool moviendose;
+
+    public bool saltando;
+
+    public string estado;
+
+
+    //Valores del -1 a 1
+
+    public float direccionHorizontal;
+    public float direccionVertical;
+
+
+    bool puedeHerirJugador = true;
+    bool puedeHerirEnemigo = true;
+    void Start()
+    {
+        vida = new Vida(tmp_vida, puntosDevida, this.gameObject, "player");
+        rb = GetComponent<Rigidbody2D>();
+    }
+    private Vector2 Direccion2D(float h, float v)
+    {
+        return new Vector2(h, v);
+    }
+
+    private float DistanciaHorizontalconObjeto(Vector2 obj)
+    {
+        //retorna la distancia horizontal entre un objeto y el jugador
+        return Vector2.Distance(new Vector2(this.transform.position.x, 0), new Vector2(obj.x, 0));
+    }
+
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("suelo"))
+        {
+            saltando = false;
+            tocandoSuelo = true;
+        }
+        if (other.gameObject.CompareTag("puntoDebil") && other.gameObject.layer == 8 && puedeHerirEnemigo)
+        {
+
+            puedeHerirEnemigo = false;
+            puedeHerirJugador = false;
+            StartCoroutine(HerirEnemigoAndWait(other, 2));
+        }
+        else if (other.gameObject.CompareTag("enemigo") && other.gameObject.layer == 7 && puedeHerirJugador)
+        {
+
+            puedeHerirEnemigo = false;
+            puedeHerirJugador = false;
+            StartCoroutine(HerirJugadorAndWait(2));
+        }
+    }
+    IEnumerator HerirJugadorAndWait(float sec)
+    {
+        Retroceso();
+        vida.DecrementarVida(1);
+        yield return new WaitForSeconds(sec);
+        puedeHerirJugador = true;
+        puedeHerirEnemigo = true;
+    }
+    IEnumerator HerirEnemigoAndWait(Collider2D col, float sec)
+    {
+        Retroceso();
+        col.gameObject.GetComponent<VidaEnemigo>().herirEnemigo();
+        yield return new WaitForSeconds(sec);
+        puedeHerirEnemigo = true;
+        puedeHerirJugador = true;
+    }
+
+    public void Retroceso()
+    {
+        saltando = true;
+        rb.velocity = new Vector2(rb.velocity.x, vSalto * 1.3f);
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("suelo"))
+        {
+            tocandoSuelo = false;
+        }
+    }
+
+
+
+    public void setAnimations()
+    {
+
+        if (GetComponent<Animator>() != null)
+        {
+            Animator anim = GetComponent<Animator>();
+            anim.SetBool("moviendose", moviendose);
+            anim.SetFloat("velocidadY", rb.velocity.y);
+            anim.SetBool("tocandoSuelo", tocandoSuelo);
+        }
+    }
+}
+
+                `,
+                text: "<p>Crea un script Llamado <b>‘PlayerObject’</b>, asegúrate de escribir el nombre perfectamente. <br>Luego pega el código de aquí abajo.</p>"
+            },
+            {
+                title: "7 Proyecto Plataformas",
+                img: "../gifs/5.7.gif",
+                code: `
+                using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class PlayerController : MonoBehaviour
+{
+    //Control
+    public bool MovimientoActivado = true;
+    public bool saltoAcivado = true;
+
+    public bool animaciones = true;
+
+    bool facingRight = true;
+    //Componentes
+    PlayerObject player;
+
+    void Start()
+    {
+        player = GetComponent<PlayerObject>();
+    }
+
+    void Update()
+    {
+
+        inputs();
+        comprobacionesMovimiento();
+        if (MovimientoActivado)
+        {
+            Movimiento();
+        }
+        if (saltoAcivado)
+        {
+            Saltar();
+        }
+        if (animaciones && MovimientoActivado != false)
+        {
+            player.setAnimations();
+        }
+    }
+
+    private void inputs()
+    {
+        player.direccionHorizontal = Input.GetAxisRaw("Horizontal");
+        player.direccionVertical = Input.GetAxisRaw("Vertical");
+
+        if (player.direccionHorizontal == 1)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (player.direccionHorizontal == -1)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+    }
+
+    private void comprobacionesMovimiento()
+    {
+        if (Mathf.Abs(player.rb.velocity.x) > 0.5f)
+        {
+            player.moviendose = true;
+        }
+        else
+        {
+            player.moviendose = false;
+        }
+    }
+    private void Movimiento()
+    {
+        player.rb.velocity = new Vector2(player.direccionHorizontal * player.vHorizontal, player.rb.velocity.y);
+    }
+
+
+    private void Saltar()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && player.tocandoSuelo == true)
+        {
+            player.saltando = true;
+            player.rb.velocity = new Vector2(player.rb.velocity.x, player.vSalto);
+        }
+    }
+    public void hurt(float daño)
+    {
+        if (player.vida.stillAlive(daño))
+        {
+            player.vida.DecrementarVida(daño);
+        }
+        else
+        {
+            player.vida.DecrementarVida(daño);
+        }
+    }
+
+    public void muerto()
+    {
+        Debug.Log("Jugador está muerto");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+}
+
+
+                `,
+                text: "p>Crea un script Llamado <b>‘PlayerController’</b>, asegúrate de escribir el nombre perfectamente. <br>Luego pega el código de aquí abajo.</p>"
+            },
+            {
+                title: "8 Proyecto Plataformas",
+                img: "../gifs/5.8.gif",
+                code: `
+                using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class Cartera : MonoBehaviour
+{
+
+    public int monedas = 0;
+    public int cuantasMonedasParaCompletar;
+    public TMP_Text text;
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        mostrarVida();
+    }
+
+
+    private void mostrarVida()
+    {
+        if (text != null)
+        {
+
+            text.text = monedas.ToString() + "/" + cuantasMonedasParaCompletar;
+        }
+    }
+
+    public void incrementarMoneda(int mas)
+    {
+        monedas += mas;
+        mostrarVida();
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (monedas >= cuantasMonedasParaCompletar)
+        {
+
+        }
+    }
+}
+
+                `,
+                text: "<p>Crea un script Llamado <b>‘Cartera’</b>, asegúrate de escribir el nombre perfectamente. <br>Luego pega el código de aquí abajo.</p>"
+            },
+            {
+                title: "9 Proyecto Plataformas",
+                img: "../gifs/5.9.gif",
+                code: `
+                using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Moneda : MonoBehaviour
+{
+
+    GameObject level;
+    public int valorMoneda;
+
+    bool noCollide = true;
+    // Start is called before the first frame update
+    void Start()
+    {
+        level = GameObject.FindGameObjectsWithTag("level")[0];
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player") && noCollide)
+        {
+            noCollide = false;
+            Destroy(this.gameObject);
+            level.GetComponent<Cartera>().incrementarMoneda(valorMoneda);
+        }
+    }
+
+}
+
+                `,
+                text: "<p>Crea un script Llamado <b>‘Moneda’</b>, asegúrate de escribir el nombre perfectamente. <br>Luego pega el código de aquí abajo.</p>"
+            },
+            {
+                title: "10 Proyecto Plataformas",
+                img: "../gifs/5.10.gif",
+                code: `
+                using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class teleport : MonoBehaviour
+{
+    public Transform Destination;
+    public GameObject player;
+    public bool OnArea = false;
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (OnArea == true && Input.GetKeyDown(KeyCode.R))
+        {
+            player.transform.position = Destination.position;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            OnArea = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            OnArea = false;
+        }
+    }
+
+}
+
+                `,
+                text: "<p>Crea un script Llamado <b>‘teleport’</b>, asegúrate de escribir el nombre perfectamente. <br>Luego pega el código de aquí abajo.</p>"
+            },
+            {
+                title: "11 Proyecto Plataformas",
+                img: "../gifs/5.11.gif",
+                code: `
+                `,
+                text: "11- <p>Selecciona cualquier objeto y dirígete al panel de ‘Tags’, aquí deberás crear las etiquetas con exactamente estos nombres:</p><ul><li>suelo</li><li>enemigo</li><li>puntoDebil</li><li>level</li></ul>"
+            },
+            {
+                title: "12 Proyecto Plataformas",
+                img: "../gifs/5.12.gif",
+                code: `
+                `,
+                text: "12- <p>Selecciona cualquier objeto y dirígete al panel ‘layers’, en las layers:</p><ul><li><b>6</b> pon player</li><li><b>7</b> pon enemigo</li><li><b>8</b> puntoDebil</li></ul>"
+            },
+            {
+                title: "13 Proyecto Plataformas",
+                img: "../gifs/5.13.gif",
+                code: `
+                `,
+                text: "13- <p>Crea un objeto que se llame suelo, tenga la tag de suelo, y un boxCollider2D y este deformado para que ocupe bastane lugar</p>"
+            },
+            {
+                title: "14 Proyecto Plataformas",
+                img: "../gifs/5.14.gif",
+                code: `
+                `,
+                text: "<p>Crea un cuadrado y llámalo Player, luego ponle la tag de ‘Player’ y la layer de ‘player’</p><br><p>Luego crea dos ‘BoxCollider2D, el segundo que sea trigger y esté ajustado para ocupar los pies del personaje. Añadele tambien un <b>Rigidbody2D</b></p>"
+            },
+            {
+                title: "15 Proyecto Plataformas",
+                img: "../gifs/5.15.gif",
+                code: `
+                `,
+                text: "<p>Haz click derecho en la jerarquía y crearemos <b>UI ⇒ Text Mesh Pro</b> posteriormente haremos doble click en el objeto que se llama canvas y arrastraremos ‘text hacia la izquierda y arriba, le llamaremos textoVida.</p>"
+            },
+            {
+                title: "16 Proyecto Plataformas",
+                img: "../gifs/5.16.gif",
+                code: `
+                `,
+                text: "<p>Haz click derecho en el objeto canvas en la jerarquía y crearemos <b>UI ⇒ Text Mesh Pro</b> posteriormente haremos doble click en el objeto que se llama canvas y arrastraremos ‘text hacia la derecha y arriba, le llamaremos textoPuntos.</p> "
+            },
+            {
+                title: "17 Proyecto Plataformas",
+                img: "../gifs/5.17.gif",
+                code: `
+                `,
+                text: "<p>Volveremos al Objeto de Player y esta vez le arrastraremos los scripts de PlayerObject y PlayerController</p><br><p>Luego, seleccionado Player, en el inspector en el componente PlayerObject donde pone ‘Tmp_vida’ seleccionaremos  textoVida</p>"
+            },
+            {
+                title: "18 Proyecto Plataformas",
+                img: "../gifs/5.18.gif",
+                code: `
+                `,
+                text: "18- <p>A estas alturas ya puedes probar el juego, todavía falta un poco para acabar. Vas bien!</p>"
+            },
+            {
+                title: "19 Proyecto Plataformas",
+                img: "../gifs/5.19.gif",
+                code: `
+                `,
+                text: "<p>Crearemos un Empty Object y le llamaremos ‘Carpeta enemigo’, click derecho sobre este objeto y crearemos un sprite de un círculo llamado enemigo, seleccionar ‘carpeta enemigo’ otra vez y crear un en empty Object que llamaremos target</p>"
+            },
+            {
+                title: "20 Proyecto Plataformas",
+                img: "../gifs/5.20.gif",
+                code: `
+                `,
+                text: "<p>En el objeto que se llama ‘enemigo’ le pondremos tag ‘enemigo’,  layer ‘enemigo’  y un rigidbody2D, un circleCollider2D y nuestro script de ‘EnemyPatrol</p><br><p>Por último, en el script en donde pone ‘Posición Objetivo’ seleccionaremos target.</p>"
+            },
+            {
+                title: "21Proyecto Plataformas",
+                img: "../gifs/5.21.gif",
+                code: `
+                `,
+                text: "<p>También le agregaremos un boxCollider2D de tipo trigger que ocupe la parte de abajo del personaje</p>"
+            },
+            {
+                title: "22Proyecto Plataformas",
+                img: "../gifs/5.22.gif",
+                code: `
+                `,
+                text: "<p>Desde la jerarquía seleccionaremos enemigo, click derecho create Empty y ponle el nombre de PuntoDebil, también asígnale en la etiqueta y layer los valores <b>’puntoDebil’</b>. además, agrégale un capsule collider 2D con trigger activado, seleccionaremos horizontal y lo cuadraremos para que este por encima del resto de los colliders.</p>"
+            },
+            {
+                title: "23 Proyecto Plataformas",
+                img: "../gifs/5.23.gif",
+                code: `
+                `,
+                text: "<p>Crea un objeto llamado Nivel, arrástrale el script de Cartera y asígnale la cantidad de monedas totales que queremos para completar el nivel, y selecciona ‘textoPuntos’. No te olvides de agregarle el <b>tag de level</b> </p>"
+            },
+            {
+                title: "24 Proyecto Plataformas",
+                img: "../gifs/5.24.gif",
+                code: `
+                `,
+                text: "<p>Crea un objeto cápsula llamada moneda, agrégale el script de Moneda y dale el valor a esa moneda(vale 1, o 2, o mas). También ponle un capsuleCollider2D con trigger Activado</p>"
+            },
+            {
+                title: "25 Proyecto Plataformas",
+                img: "../gifs/5.25.gif",
+                code: `
+                `,
+                text: "Ya puedes empezar a construir un nivel!!."
+            },
+
+        ]
+    },
+    {
+        name: "prjt5",
+        instructions: [
+            {
+                title: "Creando Tileset",
+                img: "../gifs/1.crear.gif",
+                code: `
+                `,
+                text: "<p>En la jerarquía, click derecho, crear => 2D => tileset.</p>"
+            },
+            {
+                title: "Paleta de tiles",
+                img: "../gifs/2.PaletaDeTiles.gif",
+                code: `
+                    `,
+                text: "<p>Necesitaremos una paleta para pintar en la escena. En el panel de windows => buscar 2D => tile pallete,<br> te aconsejo anclarlo a algun lugar.</p>"
+            },
+            {
+                title: "Preparando Assets",
+                img: "../gifs/2.preparandoAssets.gif",
+                code: `
+                    `,
+                text: "<p>Prepara las imagenes que vas a usar para construir el mapa.</p>"
+            },
+            {
+                title: "Importando Assets",
+                img: "../gifs/3.importandoAssets.gif",
+                code: `
+                    `,
+                text: "<p>Al arrastrar una imagen sobre la paleta te preguntará donde guardar los archivos de la paleta, te aconsejo crear una carpeta tiles para guardar las cosas. Prueba usarla!</p>"
+            },
+        ]
+    },
+
+
 ]
