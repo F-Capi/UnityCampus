@@ -1287,6 +1287,107 @@ public class teleport : MonoBehaviour
             },
         ]
     },
+    {
+        name: "prjt6",
+        instructions: [
+            {
+                title: "Escenas",
+                img: "../gifs/6.1.gif",
+                code: `
+                `,
+                text: "<p>Podemos crear una escena para el menú, y una para cada nivel.</p><br><p>Sobre la jerarquia crea UI => Text Mesh Pro</p>;"
+            },
+            {
+                title: "Título",
+                img: "../gifs/6.2.gif",
+                code: `
+                    `,
+                text: "<p>Hay muchos elementos UI, los que mas destacan es texto y botones pues nos sirven para mostrar e interactuar. Si clicas en texto verás que desde el inspector puedes cambiar el texto</p>"
+            },
+            {
+                title: "Botón",
+                img: "../gifs/6.4.gif",
+                code: `
+                    `,
+                text: "<p>Crea un botón</p>"
+            },
+            {
+                title: "Objecto Menu yb Script",
+                img: "../gifs/6.5.gif",
+                code: `
+                    `,
+                text: "<p>Crearemos un objeto vacio que contendrá un script, que será ejecutado en clicar el botón</p>"
+            },
+            {
+                title: "Script Menu",
+                img: "../gifs/6.6.5.gif",
+                code: `
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class menu : MonoBehaviour
+{
+    public void StartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+}
+
+                    `,
+                text: "<p>Iportamos UnityEngine.SceneManagement, que nos permite gestionar escenas desde código.</p>"
+            },
+            {
+                title: "Ligando el botón al script",
+                img: "../gifs/6.6.gif",
+                code: `
+                    `,
+                text: "<p>Si seleccionamos el botón tiene un componente llamado Onclick, que sirve para ejecturar código en clicar el botón. Si arrastrar el objeto meú hasta el onclick, y luego selecciona la función de StartGame.</p>"
+            },
+            {
+                title: "Asegurate que tengas todas las escenas en Build Settings",
+                img: "../gifs/6.7.gif",
+                code: `
+                    `,
+                text: "<p></p>"
+            },
+        ]
+    },
+
+    {
+        name: "prjt7",
+        instructions: [
+            {
+                title: "Ventana Animation",
+                img: "../gifs/7.1.gif",
+                code: `
+                `,
+                text: "<p>La ventana de animación nos permite juntar sprites para construir animaciones, para ver la ventana puedes ir a Windows => Animation.</p>"
+            },
+            {
+                title: "Creando Animación",
+                img: "../gifs/7.4.gif",
+                code: `
+                    `,
+                text: "<p>En clicar en un objeto, podemos ligarle una animación. Hay que guardar la animación en una carpeta para tenerlo todo organizado. Puedes arrastrar los sprites para hacer la animación.</p>"
+            },
+            {
+                title: "Más animaciones",
+                img: "../gifs/7.3.gif",
+                code: `
+                    `,
+                text: "<p>Si clicas en el nombre de la animación en la ventana del animador, aparece un menú desplegable con la opción create new clip. Si le das puedes crear mas animaciones.</p>"
+            },
+            {
+                title: "Objecto Menu yb Script",
+                img: "../gifs/7.2.gif",
+                code: `
+                    `,
+                text: "<p>Por defector las animaciones están en bucle. Desactivaremos aquellas que no queramos que se repitan en la carpeta de animaciones, clicando en los archivos de animación y desactivando la opción loop</p>"
+            },
+        ]
+    },
 
 
 ]
